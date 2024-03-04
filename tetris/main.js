@@ -169,11 +169,17 @@ function solidifyPiece() {
   });
 
   // reset position
-  piece.position.x = 0;
+  piece.position.x = Math.floor(BOARD_WIDTH / 2 - 2);
   piece.position.y = 0;
 
   // get random shape
   piece.shape = PIECES[Math.floor(Math.random() * PIECES.length)];
+
+  // gameover
+  if (checkCollision()) {
+    window.alert("GAME OVER");
+    board.forEach((row) => row.fill(0));
+  }
 }
 
 function removeRows() {
