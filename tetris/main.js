@@ -56,6 +56,28 @@ const piece = {
   ],
 };
 
+// 9. Random pieces
+const PIECES = [
+  [
+    [1, 1],
+    [1, 1],
+  ],
+  [[1, 1, 1, 1]],
+  [
+    [0, 1, 0],
+    [1, 1, 1],
+  ],
+  [
+    [1, 1, 0],
+    [0, 1, 1],
+  ],
+  [
+    [1, 0],
+    [1, 0],
+    [1, 1],
+  ],
+];
+
 // 8. Auto drop
 let dropCounter = 0;
 let lastTime = 0;
@@ -146,8 +168,12 @@ function solidifyPiece() {
     });
   });
 
+  // reset position
   piece.position.x = 0;
   piece.position.y = 0;
+
+  // get random shape
+  piece.shape = PIECES[Math.floor(Math.random() * PIECES.length)];
 }
 
 function removeRows() {
