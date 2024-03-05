@@ -1,12 +1,14 @@
 import "./style.css";
+import {
+  BLOCK_SIZE,
+  BOARD_WIDTH,
+  BOARD_HEIGHT,
+  EVENT_MOVEMENTS,
+} from "./consts";
 
 // 1. Inicializar el tablero
 const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
-
-const BLOCK_SIZE = 20;
-const BOARD_WIDTH = 14;
-const BOARD_HEIGHT = 30;
 
 const $score = document.querySelector("span");
 let score = 0;
@@ -112,19 +114,19 @@ function draw() {
 }
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "ArrowLeft") {
+  if (event.key === EVENT_MOVEMENTS.LEFT) {
     piece.position.x--;
     if (checkCollision()) {
       piece.position.x++;
     }
   }
-  if (event.key === "ArrowRight") {
+  if (event.key === EVENT_MOVEMENTS.RIGHT) {
     piece.position.x++;
     if (checkCollision()) {
       piece.position.x--;
     }
   }
-  if (event.key === "ArrowDown") {
+  if (event.key === EVENT_MOVEMENTS.DOWN) {
     piece.position.y++;
     if (checkCollision()) {
       piece.position.y--;
@@ -206,4 +208,15 @@ function removeRows() {
   });
 }
 
-update();
+const $section = document.querySelector("section");
+
+$section.addEventListener("click", () => {
+  update();
+
+  $section.remove();
+
+  const audio = new Audio("./Tetris.mp3");
+  audio.volume = 0.5;
+  audio.loop = true;
+  audio.play();
+});
